@@ -1,4 +1,15 @@
 node_modules/
 coverage/
+dist/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+.pnpm-store/
+.npm/
+.env
+.env.*
 .DS_Store
 npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
