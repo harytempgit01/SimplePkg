@@ -56,6 +56,42 @@ jobs:
 
           find "$STORE_PATH" -print | sed -e "s|$STORE_PATH|.|" -e 's|[^/]*/|  |g' -e 's|  \([^ ]\)|+-- \1|'
 
+      - name: Inspect pnpm cache files
+        shell: bash
+        run: |
+          STORE_PATH="${{ steps.pnpm-store.outputs.path }}"
+          FILES_PATH="$STORE_PATH/files"
+
+          if [ ! -d "$FILES_PATH" ]; then
+            echo "pnpm files store does not exist yet: $FILES_PATH"
+            exit 0
+          fi
+
+          while IFS= read -r ENTRY; do
+            RELATIVE_ENTRY="${ENTRY#$STORE_PATH/}"
+            echo
+            echo "==> $RELATIVE_ENTRY"
+
+            if [ -d "$ENTRY" ]; then
+              echo "type: directory"
+              find "$ENTRY" -maxdepth 3 -print | sed -e "s|$ENTRY|.|" -e 's|[^/]*/|  |g' -e 's|  \([^ ]\)|+-- \1|'
+              continue
+            fi
+
+            echo "size: $(wc -c < "$ENTRY") bytes"
+            file "$ENTRY"
+
+            if file "$ENTRY" | grep -Eq 'text|JSON|JavaScript|HTML|XML'; then
+              echo "--- preview: first 80 lines ---"
+              sed -n '1,80p' "$ENTRY"
+            elif tar -tf "$ENTRY" >/tmp/pnpm-cache-tar-list.txt 2>/dev/null; then
+              echo "--- archive contents: first 200 entries ---"
+              sed -n '1,200p' /tmp/pnpm-cache-tar-list.txt
+            else
+              echo "binary or content-addressed file; no nested file tree to list."
+            fi
+          done < <(find "$FILES_PATH" -mindepth 2 -maxdepth 2 -type f | sort | head -40)
+
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
