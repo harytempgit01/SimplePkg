@@ -43,6 +43,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-
 
+      - name: List pnpm cache tree
+        shell: bash
+        run: |
+          STORE_PATH="${{ steps.pnpm-store.outputs.path }}"
+          echo "pnpm store path: $STORE_PATH"
+
+          if [ ! -d "$STORE_PATH" ]; then
+            echo "pnpm store path does not exist yet."
+            exit 0
+          fi
+
+          find "$STORE_PATH" -print | sed -e "s|$STORE_PATH|.|" -e 's|[^/]*/|  |g' -e 's|  \([^ ]\)|+-- \1|'
+
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
