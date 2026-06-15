@@ -59,7 +59,7 @@ jobs:
           echo "file type:"
           file "$CACHE_FILE"
           echo "first 50 lines:"
-          sed -n '1,50p' "$CACHE_FILE"
+          sed -n '1,500p' "$CACHE_FILE"
 
       # - name: List pnpm cache tree
       #   shell: bash
@@ -132,7 +132,7 @@ jobs:
           echo "file type:"
           file "$CACHE_FILE"
           echo "first 50 lines:"
-          sed -n '1,50p' "$CACHE_FILE"
+          sed -n '1,500p' "$CACHE_FILE"
 
       - name: Test
         run: pnpm test
