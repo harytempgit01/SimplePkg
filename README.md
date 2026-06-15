@@ -1,4 +1,4 @@
-# simplepkg
+# simplepkg --- Forked
 
 A small utility npm package with string helpers, IDs, validation, and a CLI.
 
