@@ -43,6 +43,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-
 
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
       - name: Print selected pnpm cache file
         shell: bash
         run: |
@@ -109,9 +112,6 @@ jobs:
       #         echo "binary or content-addressed file; no nested file tree to list."
       #       fi
       #     done < <(find "$FILES_PATH" -mindepth 2 -maxdepth 2 -type f | sort | head -40)
-
-      - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
 
       - name: Build
         run: pnpm run build
