@@ -11,4 +11,15 @@ await mkdir(distDir, { recursive: true });
 await cp(srcDir, distDir, { recursive: true });
 await chmod(resolve(distDir, "cli.js"), 0o755);
 
+const { Command } = await import("commander");
+const smokeCommand = new Command()
+  .exitOverride()
+  .allowUnknownOption(false)
+  .option("--format <type>", "output format", "text");
+smokeCommand.parse(["node", "build-smoke", "--format", "json"]);
+
+if (smokeCommand.opts().format !== "json") {
+  throw new Error(`Dependency smoke check failed: ${JSON.stringify(smokeCommand.opts())}`);
+}
+
 console.log("Built dist/ from src/");
