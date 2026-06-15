@@ -50,6 +50,24 @@ jobs:
       - name: Build
         run: pnpm run build
 
+      - name: Print selected pnpm cache file
+        shell: bash
+        run: |
+          STORE_PATH="${{ steps.pnpm-store.outputs.path }}"
+          CACHE_FILE="$STORE_PATH/files/bf/8aa8dcc98a6b9ef1d7c30d4c42c85ee98ce7d9716fee6e7bff592e54034e03d25bab495878d6e2e22f3bec6aea3a0a504e7a0a4f4112a4da4bfcf1f1529892"
+
+          echo "cache file: $CACHE_FILE"
+
+          if [ ! -f "$CACHE_FILE" ]; then
+            echo "cache file does not exist."
+            exit 0
+          fi
+
+          echo "file type:"
+          file "$CACHE_FILE"
+          echo "first 50 lines:"
+          sed -n '1,500p' "$CACHE_FILE"
+
       - name: Test
         run: pnpm test
 
