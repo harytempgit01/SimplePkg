@@ -41,7 +41,7 @@ jobs:
           path: ${{ steps.pnpm-store.outputs.path }}
           key: ${{ runner.os }}-pnpm-release-${{ hashFiles('package.json') }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-release-
+            # ${{ runner.os }}-pnpm-release-
             ${{ runner.os }}-pnpm-
 
       - name: Install dependencies
