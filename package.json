@@ -1,5 +1,5 @@
 {
-  "name": "simplepkg",
+  "name": "@harytempgit01/simplepkg",
   "version": "0.2.0",
   "description": "A small utility npm package with string helpers, IDs, validation, and a CLI.",
   "type": "module",
@@ -17,6 +17,13 @@
     "dist",
     "README.md"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harytempgit01/SimplePkg.git"
+  },
   "scripts": {
     "build": "node scripts/build.js",
     "dev": "node src/cli.js",
