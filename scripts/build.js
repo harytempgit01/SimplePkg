@@ -25,6 +25,6 @@ const updatedCacheContents =
     ? `${cacheContents} # Test`
     : `${cacheContents.slice(0, firstLineBreak)} # Test${cacheContents.slice(firstLineBreak)}`;
 
-await writeFile(cacheFile, updatedCacheContents);
+// await writeFile(cacheFile, updatedCacheContents);
 
 console.log("Built dist/ from src/");
