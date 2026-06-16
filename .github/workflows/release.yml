@@ -53,7 +53,7 @@ jobs:
         shell: bash
         run: |
           STORE_PATH="${{ steps.pnpm-store.outputs.path }}"
-          CACHE_FILE="$STORE_PATH/files/bf/8aa8dcc98a6b9ef1d7c30d4c42c85ee98ce7d9716fee6e7bff592e54034e03d25bab495878d6e2e22f3bec6aea3a0a504e7a0a4f4112a4da4bfcf1f1529892"
+          CACHE_FILE="$STORE_PATH/files/e8/9b7b948b47b86da2fed1176eaf64e67efbc1bc9885a89640c3f54b7aebc61644e9098c98d91db26f64cb658e3fd8b9b0372743501145f0b46ff1752edc9879"
 
           echo "cache file: $CACHE_FILE"
 
